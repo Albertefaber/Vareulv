@@ -520,10 +520,16 @@ window.joinSpil = async function() {
   if (!navn) { toast('Skriv dit navn'); return; }
 
   toast('Forbinder...');
-  const testRef = ref(db, `spil/${inputKode}`);
-  const snap = await get(testRef);
-  if (!snap.exists() || snap.val().kode !== inputKode) {
-    toast('Forkert kode — prøv igen'); return;
+  // Prøv op til 3 gange med 1 sekunds mellemrum
+  let snap = null;
+  for (let i = 0; i < 3; i++) {
+    const testRef = ref(db, `spil/${inputKode}`);
+    snap = await get(testRef);
+    if (snap.exists() && snap.val().kode === inputKode) break;
+    if (i < 2) await new Promise(r => setTimeout(r, 1000));
+  }
+  if (!snap || !snap.exists() || snap.val().kode !== inputKode) {
+    toast('Forkert kode — bed læreren om at tjekke koden'); return;
   }
 
   kode = inputKode;
