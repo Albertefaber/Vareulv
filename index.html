@@ -256,36 +256,45 @@ let tilstand = {
   minRolle: null,
 };
 
-// Simuleret database via localStorage med polling
-function gemTilstand() {
-  const key = 'varulv-' + tilstand.kode;
-  localStorage.setItem(key, JSON.stringify(tilstand));
+const BIN_ID = '6a1e7dd9da38895dfe7a2c38';
+const API_KEY = '$2a$10$HOboKcjEBs.49AjG1RwA0Ot7AJgev8H49spOus1UnNe0JSD4It7f6';
+
+async function gemTilstand() {
+  try {
+    await fetch('https://api.jsonbin.io/v3/b/' + BIN_ID, {
+      method: 'PUT',
+      headers: {'Content-Type':'application/json','X-Master-Key':API_KEY},
+      body: JSON.stringify(tilstand)
+    });
+  } catch(e) { console.log('Gem fejl:', e); }
 }
-function hentTilstand() {
-  if (!tilstand.kode) return;
-  const key = 'varulv-' + tilstand.kode;
-  const raw = localStorage.getItem(key);
-  if (raw) {
-    const gemt = JSON.parse(raw);
-    tilstand.spillere = gemt.spillere || [];
-    tilstand.fase = gemt.fase || 'dag';
-    tilstand.log = gemt.log || [];
+
+async function hentTilstand() {
+  if (!tilstand.kode) return null;
+  try {
+    const r = await fetch('https://api.jsonbin.io/v3/b/' + BIN_ID + '/latest', {
+      headers: {'X-Master-Key': API_KEY, 'X-Bin-Meta': false}
+    });
+    if (!r.ok) return null;
+    const gemt = await r.json();
+    if (gemt && gemt.spillere) {
+      tilstand.spillere = gemt.spillere || [];
+      tilstand.fase = gemt.fase || 'dag';
+      tilstand.log = gemt.log || [];
+    }
     return gemt;
-  }
-  return null;
+  } catch(e) { return null; }
 }
 
 let pollInterval = null;
 function startPoll() {
   if (pollInterval) clearInterval(pollInterval);
-  pollInterval = setInterval(() => {
+  pollInterval = setInterval(async () => {
     const gammel = JSON.stringify(tilstand.spillere);
-    const gemt = hentTilstand();
-    if (!gemt) return;
+    await hentTilstand();
     if (JSON.stringify(tilstand.spillere) !== gammel) {
       opdaterLederUI();
     }
-    // Tjek om spiller har fået rolle
     if (!tilstand.erLeder && tilstand.minNavn) {
       const mig = tilstand.spillere.find(s => s.navn === tilstand.minNavn);
       if (mig && mig.rolle && !tilstand.minRolle) {
@@ -293,7 +302,7 @@ function startPoll() {
         visRolle(mig.rolle);
       }
     }
-  }, 2000);
+  }, 3000);
 }
 
 function toast(msg, dur=2500) {
@@ -304,12 +313,12 @@ function toast(msg, dur=2500) {
 }
 
 // ══ LEDER SETUP ══
-function initLeder() {
+async function initLeder() {
   tilstand.erLeder = true;
   tilstand.kode = Math.floor(1000 + Math.random() * 9000).toString();
   tilstand.spillere = [];
   tilstand.log = [];
-  gemTilstand();
+  await gemTilstand();
 
   document.getElementById('kode-box').style.display = 'block';
   document.getElementById('kode-display').textContent = tilstand.kode;
@@ -378,7 +387,7 @@ function startSpil() {
   });
   tilstand.fase = 'dag';
   tilstand.log = ['🎮 Spillet er startet! Roller er tildelt.'];
-  gemTilstand();
+  await gemTilstand();
   visSpilPanel();
   toast('Roller tildelt! ✓');
 }
@@ -466,7 +475,7 @@ function laegeBesky(navn) {
     }
     natAngrebMaal = null;
   }
-  gemTilstand();
+  await gemTilstand();
   renderSpilUI();
 }
 
@@ -482,7 +491,7 @@ function eliminer(navn) {
       toast(`🏹 ${navn} var jæger! De skyder én med sig!`, 4000);
       tilstand.log.push(`🏹 ${navn} (jæger) skyder én spiller!`);
     }
-    gemTilstand();
+    await gemTilstand();
     renderSpilUI();
     tjekSejr();
     toast(`${navn} er ude! De var ${r?.emoji} ${r?.navn}`);
@@ -497,11 +506,11 @@ function tjekSejr() {
   if (varulve.length === 0) {
     toast('🎉 LANDSBYEN VINDER! Alle varulve er elimineret!', 5000);
     tilstand.log.push('🎉 SEJR: Landsbyen har vundet!');
-    gemTilstand();
+    await gemTilstand();
   } else if (varulve.length >= gode.length) {
     toast('🐺 VARULVENE VINDER! De har overtaget landsbyen!', 5000);
     tilstand.log.push('🐺 SEJR: Varulvene har vundet!');
-    gemTilstand();
+    await gemTilstand();
   }
 }
 
@@ -520,22 +529,21 @@ function nulstil() {
 }
 
 // ══ SPILLER JOIN ══
-function joinSpil() {
+async function joinSpil() {
   const kode = document.getElementById('kode-input').value.trim();
   const navn = document.getElementById('navn-input').value.trim();
   if (kode.length !== 4) { toast('Indtast en 4-cifret kode'); return; }
   if (!navn) { toast('Skriv dit navn'); return; }
 
   tilstand.kode = kode;
-  const gemt = hentTilstand();
-  if (!gemt) { toast('Forkert kode — prøv igen'); return; }
+  const gemt = await hentTilstand();
+  if (!gemt || gemt.kode !== kode) { toast('Forkert kode — prøv igen'); return; }
 
-  // Tilmeld
-  if (!gemt.spillere.find(s => s.navn === navn)) {
-    gemt.spillere.push({navn, rolle: null, i_live: true});
-    localStorage.setItem('varulv-' + kode, JSON.stringify(gemt));
+  // Tilmeld spiller
+  if (!tilstand.spillere.find(s => s.navn === navn)) {
+    tilstand.spillere.push({navn, rolle: null, i_live: true});
+    await gemTilstand();
   }
-  tilstand.spillere = gemt.spillere;
   tilstand.minNavn = navn;
 
   visPage('page-venter');
