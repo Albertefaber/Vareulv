@@ -99,6 +99,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere endnu</div>
     </div>
 
+    <button class="btn btn-g" style="margin-bottom:1rem;font-size:13px" onclick="openRolleModal()">✨ Tilføj egen rolle</button>
+
     <div class="btn-row">
       <button class="btn btn-p" onclick="startSpil()">🎲 Start — tildel roller</button>
       <button class="btn btn-g" onclick="nytSpil()">🔄 Nyt spil</button>
@@ -163,6 +165,47 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- TILFØJ ROLLE MODAL -->
+<div id="rolle-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)closeRolleModal()">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;width:100%;max-width:400px;max-height:90vh;overflow-y:auto">
+    <div style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:1.25rem">✨ Tilføj egen rolle</div>
+    
+    <div style="margin-bottom:10px">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Navn</label>
+      <input id="nr-navn" type="text" placeholder="fx Bytossen, Profeten..." style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
+    </div>
+    
+    <div style="margin-bottom:10px">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Emoji ikon</label>
+      <input id="nr-emoji" type="text" placeholder="fx 🧙 🦊 👻 🎭" maxlength="4" style="width:100%;padding:9px 12px;font-size:20px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
+    </div>
+
+    <div style="margin-bottom:10px">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Side</label>
+      <select id="nr-side" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
+        <option value="god">🏡 Landsbyens side</option>
+        <option value="ond">🐺 Varulvenes side</option>
+        <option value="speciel">✨ Speciel</option>
+      </select>
+    </div>
+
+    <div style="margin-bottom:10px">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Rollens evne / beskrivelse</label>
+      <textarea id="nr-desc" placeholder="Forklar hvad denne rolle kan gøre..." style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;height:90px;resize:vertical"></textarea>
+    </div>
+
+    <div style="margin-bottom:1.25rem">
+      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Husk-tip til spilleren</label>
+      <input id="nr-tip" type="text" placeholder="fx Husk at holde din identitet skjult!" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-g" onclick="closeRolleModal()">Annuller</button>
+      <button class="btn btn-p" onclick="gemEgenRolle()">Gem rolle</button>
+    </div>
+  </div>
+</div>
 
 <script>
 const BIN = '6a1e7dd9da38895dfe7a2c38';
@@ -483,7 +526,69 @@ function visRolle(rolleId) {
   vis('p-rolle');
 }
 
+// ── EGNE ROLLER ──
+let egneRoller = JSON.parse(localStorage.getItem('varulv-egne-roller') || '[]');
+
+function openRolleModal() {
+  document.getElementById('nr-navn').value = '';
+  document.getElementById('nr-emoji').value = '';
+  document.getElementById('nr-desc').value = '';
+  document.getElementById('nr-tip').value = '';
+  document.getElementById('nr-side').value = 'god';
+  const m = document.getElementById('rolle-modal');
+  m.style.display = 'flex';
+}
+
+function closeRolleModal() {
+  document.getElementById('rolle-modal').style.display = 'none';
+}
+
+function gemEgenRolle() {
+  const navn = document.getElementById('nr-navn').value.trim();
+  const emoji = document.getElementById('nr-emoji').value.trim() || '🎭';
+  const side = document.getElementById('nr-side').value;
+  const desc = document.getElementById('nr-desc').value.trim();
+  const tip = document.getElementById('nr-tip').value.trim();
+  if (!navn) { toast('Skriv et navn til rollen'); return; }
+  if (!desc) { toast('Skriv en beskrivelse'); return; }
+
+  const sideTekster = {god:'🏡 Du er på landsbyens side!', ond:'🐺 Du er på varulvenes side!', speciel:'✨ Du har en speciel rolle!'};
+  const borderFarver = {god:'#7C3AED', ond:'#DC2626', speciel:'#EC4899'};
+
+  const id = 'custom-' + Date.now();
+  const rolle = {
+    id, navn, emoji, side,
+    sideTekst: sideTekster[side],
+    borderFarve: borderFarver[side],
+    desc: desc || 'Ingen beskrivelse',
+    tip: tip ? '💡 ' + tip : '💡 God fornøjelse!',
+    standard: 1,
+    custom: true,
+  };
+
+  egneRoller.push(rolle);
+  ROLLER.push(rolle);
+  ROLLE_MAP[id] = rolle;
+  S.rolleAntal[id] = 1;
+  localStorage.setItem('varulv-egne-roller', JSON.stringify(egneRoller));
+
+  closeRolleModal();
+  renderRoller();
+  toast(navn + ' tilføjet! ✓');
+}
+
+function indlaesEgneRoller() {
+  egneRoller.forEach(r => {
+    if (!ROLLE_MAP[r.id]) {
+      ROLLER.push(r);
+      ROLLE_MAP[r.id] = r;
+      S.rolleAntal[r.id] = r.standard || 0;
+    }
+  });
+}
+
 // ── START ──
+indlaesEgneRoller();
 vis('p-join');
 </script>
 </body>
