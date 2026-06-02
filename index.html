@@ -19,11 +19,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .kode-lbl{font-size:12px;color:var(--muted);margin-bottom:.4rem}
 .kode-num{font-family:'DM Serif Display',serif;font-size:52px;letter-spacing:10px;color:var(--purple)}
 .kode-url{font-size:11px;color:var(--muted);margin-top:.3rem}
-.roller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:1.5rem}
+.roller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;margin-bottom:1rem}
 .rk{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:.85rem .75rem;text-align:center}
 .rk.on{border-color:var(--green);background:#021A0E}
 .re{font-size:26px;display:block;margin-bottom:4px}
 .rn{font-size:13px;font-weight:500}
+.rd{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3}
 .antal-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
 .ab{width:24px;height:24px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text);cursor:pointer;font-size:15px;line-height:1}
 .ab:hover{border-color:var(--purple)}
@@ -31,18 +32,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .spiller-liste{display:flex;flex-direction:column;gap:6px;margin-bottom:1rem}
 .sr{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.65rem 1rem;display:flex;align-items:center;gap:10px}
 .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
-.dot-venter{background:var(--muted)}
-.dot-klar{background:var(--green)}
+.dot-v{background:var(--muted)}
+.dot-k{background:var(--green)}
+.dot-d{background:var(--red)}
 .sn{flex:1;font-size:14px}
-.sr-rolle{font-size:12px;color:var(--muted)}
-.btn{padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px}
-.btn-p{background:var(--purple);color:#fff}
-.btn-p:hover{opacity:.9}
-.btn-g{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
-.btn-g:hover{border-color:var(--purple)}
-.btn-r{background:var(--red);color:#fff}
+.sr-r{font-size:12px;color:var(--muted)}
+.btn{padding:10px 18px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.btn-p{background:var(--purple);color:#fff}.btn-p:hover{opacity:.9}
+.btn-g{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-g:hover{border-color:var(--purple)}
+.btn-r{background:var(--red);color:#fff}.btn-r:hover{opacity:.9}
 .btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
-/* JOIN */
 .center-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 .join-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;width:100%;max-width:360px;text-align:center}
 .join-title{font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:.4rem}
@@ -50,19 +49,16 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .inp{width:100%;padding:11px 14px;font-size:16px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;margin-bottom:.75rem;text-align:center;letter-spacing:3px}
 .inp-navn{letter-spacing:0;text-align:left}
 .inp:focus{outline:none;border-color:var(--purple)}
-/* VENTER */
 .venter-page{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;padding:2rem}
 .puls{animation:p 2s ease-in-out infinite}
 @keyframes p{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.95)}}
-/* ROLLE */
 .rolle-page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem}
 .rolle-card{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:2rem 1.75rem;max-width:400px;width:100%;text-align:center}
 .re-big{font-size:90px;display:block;margin-bottom:.75rem;line-height:1}
 .rt{font-family:'DM Serif Display',serif;font-size:34px;margin-bottom:.4rem}
-.rs{font-size:14px;font-weight:500;margin-bottom:1.25rem}
-.rd{font-size:15px;line-height:1.8;background:var(--surface2);border-radius:12px;padding:1.25rem;margin-bottom:1rem;text-align:left}
+.rs{font-size:14px;font-weight:500;margin-bottom:.5rem}
+.rd2{font-size:15px;line-height:1.8;background:var(--surface2);border-radius:12px;padding:1.25rem;margin-bottom:1rem;text-align:left}
 .rtip{font-size:13px;background:#1A1208;border:1px solid #92400E;color:var(--gold);border-radius:8px;padding:.75rem 1rem;text-align:left}
-/* SPIL */
 .fase-tabs{display:flex;gap:8px;margin-bottom:1.25rem}
 .fase-tab{flex:1;padding:11px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;font-family:'DM Serif Display',serif;font-size:15px;color:var(--muted)}
 .fase-tab.dag{border-color:var(--gold);color:var(--gold);background:#1A1208}
@@ -71,9 +67,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .log-item{font-size:12px;color:var(--muted);padding:3px 8px;border-radius:5px;background:var(--surface)}
 .log-item.d{color:#F87171}
 .log-item.h{color:#6EE7B7}
-/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--purple);color:#fff;padding:9px 18px;border-radius:99px;font-size:13px;z-index:999;opacity:0;transition:all .25s;pointer-events:none}
 .toast.vis{opacity:1;transform:translateX(-50%) translateY(0)}
+.spiller-count{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:99px;padding:4px 12px;font-size:12px;color:var(--muted);margin-bottom:1rem}
+.spiller-count span{color:var(--green);font-weight:500}
 </style>
 </head>
 <body>
@@ -93,13 +90,12 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
     <div class="sec">🎭 Vælg roller og antal</div>
     <div class="roller-grid" id="roller-grid"></div>
+    <button class="btn btn-g" style="margin-bottom:1.25rem;font-size:13px" onclick="openEgenRolle()">✨ Tilføj egen rolle</button>
 
     <div class="sec">👥 Spillere (<span id="spiller-count">0</span>)</div>
     <div class="spiller-liste" id="spiller-liste">
       <div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere endnu</div>
     </div>
-
-    <button class="btn btn-g" style="margin-bottom:1rem;font-size:13px" onclick="openRolleModal()">✨ Tilføj egen rolle</button>
 
     <div class="btn-row">
       <button class="btn btn-p" onclick="startSpil()">🎲 Start — tildel roller</button>
@@ -158,121 +154,147 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="rt" id="r-titel"></div>
       <div class="rs" id="r-side"></div>
       <div style="font-size:12px;color:var(--muted);margin-bottom:1rem">👇 Læs din rolle — hold den hemmelig!</div>
-      <div class="rd" id="r-desc"></div>
+      <div class="rd2" id="r-desc"></div>
       <div class="rtip" id="r-tip"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VARULV CHAT -->
+<div class="page" id="p-vchat">
+  <div style="background:var(--bg);min-height:100vh;display:flex;flex-direction:column">
+    <div style="background:#1a0a0a;border-bottom:1px solid #4a1010;padding:1rem 1.5rem;display:flex;align-items:center;gap:10px">
+      <button onclick="visRollePage()" style="background:none;border:none;color:#F87171;cursor:pointer;font-size:20px;padding:0 4px">←</button>
+      <div style="font-family:'DM Serif Display',serif;font-size:18px;color:#F87171;flex:1">🐺 Varulve-chat</div>
+      <span style="font-size:11px;background:#2a1010;color:#F87171;border:1px solid #4a1010;padding:3px 10px;border-radius:99px">Hemmelig</span>
+    </div>
+    <div style="flex:1;overflow-y:auto;padding:1rem;display:flex;flex-direction:column;gap:8px" id="vchat-msgs"></div>
+    <div style="padding:1rem;border-top:1px solid var(--border);display:flex;gap:8px;background:var(--surface)">
+      <input id="vchat-input" type="text" placeholder="Skriv til de andre varulve..." maxlength="200"
+        style="flex:1;padding:10px 14px;font-size:14px;border:1.5px solid #4a1010;border-radius:10px;background:#1a0a0a;color:#F0EDE8;font-family:'DM Sans',sans-serif"
+        onkeydown="if(event.key==='Enter')sendVChat()">
+      <button class="btn btn-r" style="padding:10px 16px" onclick="sendVChat()">Send</button>
+    </div>
+  </div>
+</div>
+
+<!-- DØD SIDE -->
+<div class="page" id="p-doed">
+  <div class="venter-page">
+    <div style="font-size:80px;margin-bottom:.5rem">💀</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:28px;margin-bottom:.5rem">Du er død!</div>
+    <div style="font-size:14px;color:var(--muted);margin-bottom:1.5rem" id="doed-tekst">Du er blevet elimineret fra spillet</div>
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.25rem;max-width:320px;width:100%;text-align:left">
+      <div style="font-size:12px;color:var(--muted);margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.05em">Spillere stadig i live</div>
+      <div id="doed-spillere" style="display:flex;flex-direction:column;gap:6px"></div>
+    </div>
+    <div style="font-size:13px;color:var(--muted);margin-top:1rem">Du kan stadig følge med som tilskuer 👻</div>
+  </div>
+</div>
+
+<!-- EGEN ROLLE MODAL -->
+<div id="er-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)closeEgenRolle()">
+  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;width:100%;max-width:400px;max-height:90vh;overflow-y:auto">
+    <div style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:1.25rem">✨ Tilføj egen rolle</div>
+    <div style="margin-bottom:10px"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Navn</label>
+    <input id="er-navn" type="text" placeholder="fx Bytossen" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif"></div>
+    <div style="margin-bottom:10px"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Emoji</label>
+    <input id="er-emoji" type="text" placeholder="🧙" maxlength="4" style="width:100%;padding:9px 12px;font-size:20px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif"></div>
+    <div style="margin-bottom:10px"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Side</label>
+    <select id="er-side" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
+      <option value="god">🏡 Landsbyens side</option>
+      <option value="ond">🐺 Varulvenes side</option>
+      <option value="speciel">✨ Speciel</option>
+    </select></div>
+    <div style="margin-bottom:10px"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Beskrivelse</label>
+    <textarea id="er-desc" placeholder="Hvad kan denne rolle?" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;height:85px;resize:vertical"></textarea></div>
+    <div style="margin-bottom:1.25rem"><label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:3px">Husk-tip</label>
+    <input id="er-tip" type="text" placeholder="fx Hold din identitet skjult!" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif"></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end">
+      <button class="btn btn-g" onclick="closeEgenRolle()">Annuller</button>
+      <button class="btn btn-p" onclick="gemEgenRolle()">Gem rolle</button>
     </div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- TILFØJ ROLLE MODAL -->
-<div id="rolle-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;align-items:center;justify-content:center;padding:1.5rem" onclick="if(event.target===this)closeRolleModal()">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.75rem;width:100%;max-width:400px;max-height:90vh;overflow-y:auto">
-    <div style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:1.25rem">✨ Tilføj egen rolle</div>
-    
-    <div style="margin-bottom:10px">
-      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Navn</label>
-      <input id="nr-navn" type="text" placeholder="fx Bytossen, Profeten..." style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
-    </div>
-    
-    <div style="margin-bottom:10px">
-      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Emoji ikon</label>
-      <input id="nr-emoji" type="text" placeholder="fx 🧙 🦊 👻 🎭" maxlength="4" style="width:100%;padding:9px 12px;font-size:20px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
-    </div>
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+import { getDatabase, ref, set, get, onValue, update, remove } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js';
 
-    <div style="margin-bottom:10px">
-      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Side</label>
-      <select id="nr-side" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
-        <option value="god">🏡 Landsbyens side</option>
-        <option value="ond">🐺 Varulvenes side</option>
-        <option value="speciel">✨ Speciel</option>
-      </select>
-    </div>
+// ── FIREBASE SETUP ──
+const app = initializeApp({
+  databaseURL: 'https://vareulv-9f346-default-rtdb.europe-west1.firebasedatabase.app'
+});
+const db = getDatabase(app);
 
-    <div style="margin-bottom:10px">
-      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Rollens evne / beskrivelse</label>
-      <textarea id="nr-desc" placeholder="Forklar hvad denne rolle kan gøre..." style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;height:90px;resize:vertical"></textarea>
-    </div>
-
-    <div style="margin-bottom:1.25rem">
-      <label style="display:block;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px">Husk-tip til spilleren</label>
-      <input id="nr-tip" type="text" placeholder="fx Husk at holde din identitet skjult!" style="width:100%;padding:9px 12px;font-size:14px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif">
-    </div>
-
-    <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button class="btn btn-g" onclick="closeRolleModal()">Annuller</button>
-      <button class="btn btn-p" onclick="gemEgenRolle()">Gem rolle</button>
-    </div>
-  </div>
-</div>
-
-<script>
-const BIN = '6a1e7dd9da38895dfe7a2c38';
-const KEY = '$2a$10$HOboKcjEBs.49AjG1RwA0Ot7AJgev8H49spOus1UnNe0JSD4It7f6';
-const URL_BASE = 'https://api.jsonbin.io/v3/b/' + BIN;
-
-const ROLLER = [
+// ── ROLLER ──
+const ROLLER_BASIS = [
   {id:'varulv', navn:'Varulv', emoji:'🐺', side:'ond', sideTekst:'🐺 Du er på varulvenes side!', borderFarve:'#DC2626',
-   desc:'Hver nat vågner du og dine medvarulve og peger på en borger I vil æde. Om dagen skal I skjule jer og så uskyldige ud som muligt.',
+   desc:'Hver nat vågner du og dine medvarulve og peger på en borger I vil æde. Om dagen skal I skjule jer og virke uskyldige.',
    tip:'💡 Vær overbevisende om dagen — lad ikke nogen opdage dig!', standard:2},
   {id:'borger', navn:'Borger', emoji:'👤', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#7C3AED',
    desc:'Du er en almindelig borger uden særlige evner. Men din stemme ved dagafstemningen er vigtig! Observer hvem der opfører sig mistænkeligt.',
-   tip:'💡 Hvem undgår øjenkontakt? Hvem er for ivrig efter at stemme andre ud?', standard:4},
+   tip:'💡 Hvem undgår øjenkontakt? Hvem er for ivrig?', standard:4},
   {id:'syersken', navn:'Syersken', emoji:'👁️', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#7C3AED',
-   desc:'Hver nat kan du pege på én spiller. Læreren fortæller dig hemmeligt om personen er varulv eller ej. Du er landsbyens hemmelige efterforsker!',
-   tip:'💡 Del din viden klogt — men pas på at varulvene ikke finder ud af hvem du er!', standard:1},
+   desc:'Hver nat kan du pege på én spiller. Læreren fortæller dig hemmeligt om personen er varulv eller ej.',
+   tip:'💡 Del din viden klogt — varulvene må ikke finde ud af hvem du er!', standard:1},
   {id:'laege', navn:'Læge', emoji:'💊', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#059669',
-   desc:'Hver nat kan du beskytte én spiller mod varulvenes angreb. Du kan også beskytte dig selv! Du kan ikke beskytte den samme person to nætter i træk.',
+   desc:'Hver nat kan du beskytte én spiller mod varulvenes angreb. Du kan beskytte dig selv! Du kan ikke beskytte samme person to nætter i træk.',
    tip:'💡 Prøv at gætte hvem varulvene vil angribe — og beskyt dem!', standard:1},
   {id:'heks', navn:'Heks', emoji:'🧙', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#D97706',
-   desc:'Du har to eliksirer — én der redder den angrebne fra varulvene, og én der dræber en valgfri spiller. Begge kan kun bruges én gang i hele spillet!',
+   desc:'Du har to eliksirer: én der redder den angrebne fra varulvene, og én der dræber en valgfri spiller. Begge kan kun bruges én gang!',
    tip:'💡 Gem din dræbende eliksir til det perfekte øjeblik!', standard:0},
   {id:'jeger', navn:'Jæger', emoji:'🏹', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#92400E',
-   desc:'Når du dør — enten om natten eller ved afstemning — skyder du øjeblikkeligt én anden spiller med dig i graven. Vælg klogt!',
+   desc:'Når du dør — enten om natten eller ved afstemning — skyder du øjeblikkeligt én anden spiller med dig i graven.',
    tip:'💡 Hold din identitet skjult — din kraft er stærkest som en overraskelse!', standard:0},
   {id:'amor', navn:'Amor', emoji:'💘', side:'speciel', sideTekst:'💘 Du er Amor — skab kærlighed!', borderFarve:'#EC4899',
-   desc:'Den første nat udpeger du to spillere som bliver forelsket. Hvis den ene dør, dør den anden af sorg. Elskende vinder KUN hvis begge overlever til sidst!',
+   desc:'Den første nat udpeger du to spillere som bliver forelsket. Hvis den ene dør, dør den anden af sorg. Elskende vinder KUN hvis begge overlever!',
    tip:'💡 Forener du en varulv og en borger skabes en tredje vinder-betingelse!', standard:0},
+  {id:'bytossen', navn:'Bytossen', emoji:'🤡', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#F59E0B',
+   desc:'Du er en uskyldig borger — men din opgave er at SPILLE DUM og mistænkelig! Sig mærkelige ting, opfør dig underligt og få alle til at tro du er en varulv. Jo mere kaos du skaber, jo bedre!',
+   tip:'💡 Hvis du bliver stemt ud har du vundet din personlige udfordring — men landsbyen har stadig brug for dig!', standard:0},
+  {id:'profeten', navn:'Profeten', emoji:'🔮', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#8B5CF6',
+   desc:'Én gang i spillet kan du afsløre din egen rolle offentligt — og alle skal tro på dig. Du ved hvem der dør næste nat (læreren hvisker det til dig).',
+   tip:'💡 Brug din profeti på det rigtige tidspunkt — det kan vende hele spillet!', standard:0},
+  {id:'graveren', navn:'Graveren', emoji:'⚰️', side:'god', sideTekst:'🏡 Du er på landsbyens side!', borderFarve:'#6B7280',
+   desc:'Hver gang nogen dør får du at vide hvilken rolle de havde. Du er landsbyens hukommelse og ved hvem der er elimineret og hvad de var.',
+   tip:'💡 Del din viden med landsbyen — men pas på varulvene ikke hører det!', standard:0},
 ];
 
+let ROLLER = [...ROLLER_BASIS];
 const ROLLE_MAP = {};
 ROLLER.forEach(r => ROLLE_MAP[r.id] = r);
 
-let S = {
-  kode: null,
-  spillere: [],
-  rolleAntal: {},
-  fase: 'dag',
-  log: [],
-  startet: false,
-};
-ROLLER.forEach(r => S.rolleAntal[r.id] = r.standard);
+let egneRoller = JSON.parse(localStorage.getItem('varulv-egne-roller') || '[]');
+egneRoller.forEach(r => { ROLLER.push(r); ROLLE_MAP[r.id] = r; });
 
+// ── STATE ──
+let kode = null;
 let minNavn = null;
 let minRolle = null;
 let erLeder = false;
-let pollTimer = null;
+let natMaal = null;
+let rolleAntal = {};
+ROLLER.forEach(r => rolleAntal[r.id] = r.standard || 0);
 
-// ── API ──
-async function gem() {
-  try {
-    await fetch(URL_BASE, {
-      method: 'PUT',
-      headers: {'Content-Type':'application/json','X-Master-Key':KEY},
-      body: JSON.stringify(S)
-    });
-  } catch(e) {}
+// ── FIREBASE HELPERS ──
+function spilRef(path) { return ref(db, `spil/${kode}${path ? '/'+path : ''}`); }
+
+async function gemSpil(data) {
+  await update(spilRef(), data);
 }
 
-async function hent() {
-  try {
-    const r = await fetch(URL_BASE + '/latest', {
-      headers: {'X-Master-Key':KEY,'X-Bin-Meta':'false'}
-    });
-    if (!r.ok) return null;
-    return await r.json();
-  } catch(e) { return null; }
+async function hentSpil() {
+  const snap = await get(spilRef());
+  return snap.exists() ? snap.val() : null;
+}
+
+function lytSpil(callback) {
+  return onValue(spilRef(), snap => {
+    callback(snap.exists() ? snap.val() : null);
+  });
 }
 
 // ── TOAST ──
@@ -289,27 +311,34 @@ function vis(id) {
 }
 
 // ── LEDER ──
-function visLeder() {
+window.visLeder = function() {
   erLeder = true;
-  vis('p-leder');
-  // Generer kode
-  S.kode = String(Math.floor(1000 + Math.random() * 9000));
-  S.spillere = [];
-  S.log = [];
-  S.startet = false;
-  S.fase = 'dag';
-  document.getElementById('kode-vis').textContent = S.kode;
+  kode = String(Math.floor(1000 + Math.random() * 9000));
+  document.getElementById('kode-vis').textContent = kode;
   renderRoller();
-  gem();
-  startPoll();
+  vis('p-leder');
+  // Opret spil i Firebase
+  set(spilRef(), {
+    kode, spillere: {}, log: ['🎮 Spil oprettet — venter på spillere'], startet: false, fase: 'dag'
+  });
+  // Lyt efter spillere
+  lytSpil(data => {
+    if (!data) return;
+    opdaterLederUI(data);
+    if (data.startet) {
+      document.getElementById('spil-panel').style.display = 'block';
+      renderSpilPanel(data);
+    }
+  });
 }
 
 function renderRoller() {
   document.getElementById('roller-grid').innerHTML = ROLLER.map(r => {
-    const n = S.rolleAntal[r.id] || 0;
-    return `<div class="rk${n>0?' on':''}">
+    const n = rolleAntal[r.id] || 0;
+    return `<div class="rk${n>0?' on':''}" id="rk-${r.id}">
       <span class="re">${r.emoji}</span>
       <div class="rn">${r.navn}</div>
+      <div class="rd">${r.desc ? r.desc.substring(0,45)+'...' : ''}</div>
       <div class="antal-row">
         <button class="ab" onclick="chAntal('${r.id}',-1)">−</button>
         <span class="an" id="an-${r.id}">${n}</span>
@@ -319,76 +348,85 @@ function renderRoller() {
   }).join('');
 }
 
-function chAntal(id, d) {
-  S.rolleAntal[id] = Math.max(0, (S.rolleAntal[id]||0) + d);
-  document.getElementById('an-' + id).textContent = S.rolleAntal[id];
-  document.getElementById('an-' + id).closest('.rk').className = 'rk' + (S.rolleAntal[id]>0?' on':'');
+window.chAntal = function(id, d) {
+  rolleAntal[id] = Math.max(0, (rolleAntal[id]||0) + d);
+  document.getElementById('an-'+id).textContent = rolleAntal[id];
+  document.getElementById('rk-'+id).className = 'rk' + (rolleAntal[id]>0?' on':'');
 }
 
-function opdaterLederUI() {
-  const n = S.spillere.length;
-  document.getElementById('spiller-count').textContent = n;
+function opdaterLederUI(data) {
+  const spillere = data.spillere ? Object.values(data.spillere) : [];
+  document.getElementById('spiller-count').textContent = spillere.length;
   const liste = document.getElementById('spiller-liste');
-  if (!n) {
+  if (!spillere.length) {
     liste.innerHTML = '<div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere endnu</div>';
     return;
   }
-  liste.innerHTML = S.spillere.map(s => {
+  liste.innerHTML = spillere.map(s => {
     const r = ROLLE_MAP[s.rolle];
+    const dotKlass = !s.i_live ? 'dot-d' : s.rolle ? 'dot-k' : 'dot-v';
     return `<div class="sr">
-      <div class="dot ${s.rolle ? 'dot-klar' : 'dot-venter'}"></div>
-      <div class="sn">${s.navn}</div>
-      <div class="sr-rolle">${s.rolle ? r.emoji+' '+r.navn : 'Venter...'}</div>
+      <div class="dot ${dotKlass}"></div>
+      <div class="sn">${s.navn}${!s.i_live?' ☠️':''}</div>
+      <div class="sr-r">${s.rolle ? r?.emoji+' '+r?.navn : 'Venter...'}</div>
     </div>`;
   }).join('');
 }
 
-async function startSpil() {
-  if (S.spillere.length < 2) { toast('Mindst 2 spillere skal med!'); return; }
-  // Byg rolleliste
+window.startSpil = async function() {
+  const data = await hentSpil();
+  const spillere = data?.spillere ? Object.values(data.spillere) : [];
+  if (spillere.length < 2) { toast('Mindst 2 spillere!'); return; }
+
   let roller = [];
-  Object.entries(S.rolleAntal).forEach(([id, n]) => {
-    for (let i=0; i<n; i++) roller.push(id);
+  Object.entries(rolleAntal).forEach(([id, n]) => { for(let i=0;i<n;i++) roller.push(id); });
+  while (roller.length < spillere.length) roller.push('borger');
+  for (let i=roller.length-1;i>0;i--) { const j=Math.floor(Math.random()*(i+1)); [roller[i],roller[j]]=[roller[j],roller[i]]; }
+
+  const opdateret = {};
+  spillere.forEach((s,i) => {
+    opdateret[s.navn] = {...s, rolle: roller[i]||'borger', i_live: true};
   });
-  while (roller.length < S.spillere.length) roller.push('borger');
-  // Bland
-  for (let i=roller.length-1; i>0; i--) {
-    const j = Math.floor(Math.random()*(i+1));
-    [roller[i],roller[j]] = [roller[j],roller[i]];
-  }
-  S.spillere.forEach((s,i) => { s.rolle = roller[i]||'borger'; s.i_live = true; });
-  S.startet = true;
-  S.log = ['🎮 Spillet er startet!'];
-  await gem();
+
+  await gemSpil({
+    spillere: opdateret,
+    startet: true,
+    fase: 'dag',
+    log: {0: '🎮 Spillet er startet! Roller er tildelt.'}
+  });
   toast('Roller tildelt! ✓');
-  visSpilPanel();
 }
 
-function visSpilPanel() {
+window.setFase = function(fase) {
+  gemSpil({fase});
+  document.querySelectorAll('.fase-tab').forEach(t => t.className = 'fase-tab');
+  document.querySelectorAll('.fase-tab')[fase==='dag'?0:1].classList.add(fase);
+  document.getElementById('dag-panel').style.display = fase==='dag'?'block':'none';
+  document.getElementById('nat-panel').style.display = fase==='nat'?'block':'none';
+}
+
+function renderSpilPanel(data) {
   document.getElementById('spil-panel').style.display = 'block';
-  renderSpilPanel();
-}
+  const spillere = data.spillere ? Object.values(data.spillere) : [];
+  const i_live = spillere.filter(s => s.i_live);
+  const fase = data.fase || 'dag';
 
-function renderSpilPanel() {
-  const i_live = S.spillere.filter(s => s.i_live);
-  const fase = S.fase;
-  // Fase tabs
   document.querySelectorAll('.fase-tab').forEach(t => t.className = 'fase-tab');
   document.querySelectorAll('.fase-tab')[fase==='dag'?0:1].classList.add(fase);
 
-  let html = '';
-  if (fase === 'dag') {
-    html = `<p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Diskuter hvem der er varulv. Stem én ud.</p>
+  const dagHTML = `<div id="dag-panel" style="display:${fase==='dag'?'block':'none'}">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Diskuter hvem der er varulv. Stem én ud.</p>
     ${i_live.map(s => {
       const r = ROLLE_MAP[s.rolle];
-      return `<div class="sr">
-        <div class="dot dot-klar"></div>
-        <div class="sn">${s.navn} <span style="font-size:11px;color:var(--muted)">(${r.emoji} ${r.navn})</span></div>
+      return `<div class="sr"><div class="dot dot-k"></div>
+        <div class="sn">${s.navn} <span style="font-size:11px;color:var(--muted)">(${r?.emoji||'?'} ${r?.navn||'?'})</span></div>
         <button class="btn btn-r" style="padding:5px 10px;font-size:12px" onclick="eliminer('${s.navn}')">☠️ Ud</button>
       </div>`;
-    }).join('')}`;
-  } else {
-    html = `<p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Alle lukker øjnene. Vækk rollerne én ad gangen.</p>
+    }).join('')}
+  </div>`;
+
+  const natHTML = `<div id="nat-panel" style="display:${fase==='nat'?'block':'none'}">
+    <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Alle lukker øjnene. Vækk rollerne én ad gangen.</p>
     <div style="margin-bottom:1rem">
       <div style="font-size:13px;font-weight:500;margin-bottom:.5rem">🐺 Varulvene angriber — hvem?</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${i_live.map(s=>`<button class="btn btn-g" style="font-size:12px;padding:6px 10px" onclick="natAngreb('${s.navn}')">${s.navn}</button>`).join('')}</div>
@@ -396,122 +434,130 @@ function renderSpilPanel() {
     <div>
       <div style="font-size:13px;font-weight:500;margin-bottom:.5rem">💊 Lægen beskytter — hvem?</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${i_live.map(s=>`<button class="btn btn-g" style="font-size:12px;padding:6px 10px;border-color:#059669;color:#6EE7B7" onclick="laegeBesky('${s.navn}')">${s.navn}</button>`).join('')}</div>
-    </div>`;
-  }
-  document.getElementById('fase-indhold').innerHTML = html;
-  document.getElementById('log').innerHTML = [...S.log].reverse().map(l =>
+    </div>
+  </div>`;
+
+  document.getElementById('fase-indhold').innerHTML = dagHTML + natHTML;
+
+  // Log
+  const logItems = data.log ? Object.values(data.log).reverse() : [];
+  document.getElementById('log').innerHTML = logItems.map(l =>
     `<div class="log-item${l.includes('ædt')||l.includes('ud')||l.includes('dør')?' d':l.includes('beskyttet')||l.includes('reddet')?' h':''}">${l}</div>`
   ).join('');
 }
 
-async function setFase(f) {
-  S.fase = f;
-  renderSpilPanel();
-}
-
-let natMaal = null;
-function natAngreb(navn) {
+window.natAngreb = function(navn) {
   natMaal = navn;
   toast(`🐺 Varulvene sigter på ${navn}`);
 }
 
-async function laegeBesky(navn) {
+window.laegeBesky = async function(navn) {
+  const data = await hentSpil();
+  const spillere = data.spillere || {};
+  const log = data.log ? Object.values(data.log) : [];
+
   if (natMaal === navn) {
-    S.log.push(`💊 ${navn} blev angrebet men reddet af lægen!`);
+    log.push(`💊 ${navn} blev angrebet men reddet af lægen!`);
     natMaal = null;
     toast(`💊 ${navn} er reddet!`);
   } else {
-    S.log.push(`💊 Lægen beskyttede ${navn}`);
-    if (natMaal) {
-      const offer = S.spillere.find(s => s.navn === natMaal);
-      if (offer) {
-        offer.i_live = false;
-        S.log.push(`🐺 ${natMaal} blev ædt af varulvene!`);
-        if (offer.rolle === 'jeger') S.log.push(`🏹 ${natMaal} var jæger og skyder én med sig!`);
-        toast(`💀 ${natMaal} er død`, 3000);
-      }
+    log.push(`💊 Lægen beskyttede ${navn}`);
+    if (natMaal && spillere[natMaal]) {
+      spillere[natMaal].i_live = false;
+      log.push(`🐺 ${natMaal} blev ædt af varulvene om natten!`);
+      if (spillere[natMaal].rolle === 'jeger') log.push(`🏹 ${natMaal} var jæger og skyder én med sig!`);
+      toast(`💀 ${natMaal} er død`, 3000);
       natMaal = null;
+    } else {
+      toast(`💊 ${navn} er beskyttet`);
     }
-    toast(`💊 ${navn} er beskyttet`);
   }
-  await gem();
-  renderSpilPanel();
-  tjekSejr();
+
+  const logObj = {};
+  log.forEach((l,i) => logObj[i] = l);
+  await gemSpil({spillere, log: logObj});
 }
 
-async function eliminer(navn) {
+window.eliminer = async function(navn) {
   if (!confirm(`Stem ${navn} ud?`)) return;
-  const s = S.spillere.find(x => x.navn === navn);
-  if (s) {
-    s.i_live = false;
-    const r = ROLLE_MAP[s.rolle];
-    S.log.push(`🗳️ ${navn} (${r.navn}) blev stemt ud!`);
-    if (s.rolle === 'jeger') S.log.push(`🏹 ${navn} var jæger og skyder én med sig!`);
-    await gem();
-    renderSpilPanel();
-    tjekSejr();
-    toast(`${navn} er ude — de var ${r.emoji} ${r.navn}`, 3000);
+  const data = await hentSpil();
+  const spillere = data.spillere || {};
+  const log = data.log ? Object.values(data.log) : [];
+
+  if (spillere[navn]) {
+    spillere[navn].i_live = false;
+    const r = ROLLE_MAP[spillere[navn].rolle];
+    log.push(`🗳️ ${navn} (${r?.navn||'?'}) blev stemt ud!`);
+    if (spillere[navn].rolle === 'jeger') log.push(`🏹 ${navn} var jæger og skyder én med sig!`);
+    toast(`${navn} er ude — de var ${r?.emoji||'?'} ${r?.navn||'?'}`, 3000);
   }
+
+  const logObj = {};
+  log.forEach((l,i) => logObj[i] = l);
+  await gemSpil({spillere, log: logObj});
+  tjekSejr(spillere);
 }
 
-function tjekSejr() {
-  const i_live = S.spillere.filter(s => s.i_live);
-  const onde = i_live.filter(s => s.rolle === 'varulv' || s.rolle === 'vampyr');
+window.tjekSejr = function(spillere) {
+  if (!spillere) return;
+  const i_live = Object.values(spillere).filter(s => s.i_live);
+  const onde = i_live.filter(s => s.rolle === 'varulv');
   const gode = i_live.filter(s => ROLLE_MAP[s.rolle]?.side !== 'ond');
   if (onde.length === 0) toast('🎉 LANDSBYEN VINDER! Alle varulve er væk!', 5000);
   else if (onde.length >= gode.length) toast('🐺 VARULVENE VINDER!', 5000);
 }
 
-async function nytSpil() {
+window.nytSpil = function() {
   if (!confirm('Start nyt spil?')) return;
-  clearInterval(pollTimer);
   visLeder();
 }
 
 // ── SPILLER ──
-async function joinSpil() {
-  const kode = document.getElementById('j-kode').value.trim();
+window.joinSpil = async function() {
+  const inputKode = document.getElementById('j-kode').value.trim();
   const navn = document.getElementById('j-navn').value.trim();
-  if (kode.length !== 4) { toast('Indtast 4-cifret kode'); return; }
+  if (inputKode.length !== 4) { toast('Indtast 4-cifret kode'); return; }
   if (!navn) { toast('Skriv dit navn'); return; }
 
   toast('Forbinder...');
-  const data = await hent();
-  if (!data || data.kode !== kode) { toast('Forkert kode — prøv igen'); return; }
-
-  // Tilmeld
-  if (!data.spillere.find(s => s.navn === navn)) {
-    data.spillere.push({navn, rolle: null, i_live: true});
-    S = data;
-    await gem();
-  } else {
-    S = data;
+  const testRef = ref(db, `spil/${inputKode}`);
+  const snap = await get(testRef);
+  if (!snap.exists() || snap.val().kode !== inputKode) {
+    toast('Forkert kode — prøv igen'); return;
   }
 
+  kode = inputKode;
   minNavn = navn;
+
+  // Tilmeld spilleren
+  await set(ref(db, `spil/${kode}/spillere/${navn}`), {navn, rolle: null, i_live: true});
+
   vis('p-venter');
   document.getElementById('venter-tekst').textContent = navn + ' er tilmeldt ✓';
-  startPoll();
-}
 
-// ── POLL ──
-function startPoll() {
-  clearInterval(pollTimer);
-  pollTimer = setInterval(async () => {
-    const data = await hent();
-    if (!data) return;
-    S = data;
-    if (erLeder) {
-      opdaterLederUI();
-      if (S.startet) visSpilPanel();
-    } else if (minNavn) {
-      const mig = S.spillere.find(s => s.navn === minNavn);
-      if (mig && mig.rolle && !minRolle) {
-        minRolle = mig.rolle;
-        visRolle(mig.rolle);
-      }
+  // Lyt efter ændringer på spilleren og hele spillet
+  onValue(ref(db, `spil/${kode}`), snap => {
+    if (!snap.exists()) return;
+    const spilData = snap.val();
+    const mig = spilData.spillere?.[navn];
+    if (!mig) return;
+
+    // Fik rolle for første gang
+    if (mig.rolle && !minRolle) {
+      minRolle = mig.rolle;
+      visRolle(mig.rolle);
     }
-  }, 3000);
+
+    // Tjek om død
+    if (minRolle && mig.i_live === false) {
+      visDoed(spilData);
+    }
+
+    // Opdater live-visning hvis allerede på rolle-siden
+    if (minRolle && mig.i_live === true) {
+      opdaterRolleSide(spilData);
+    }
+  });
 }
 
 function visRolle(rolleId) {
@@ -523,72 +569,119 @@ function visRolle(rolleId) {
   document.getElementById('r-desc').textContent = r.desc;
   document.getElementById('r-tip').textContent = r.tip;
   document.getElementById('rolle-card').style.borderColor = r.borderFarve;
+
+  // Vis varulve-chat knap til varulve
+  const existing = document.getElementById('vchat-btn-wrap');
+  if (existing) existing.remove();
+  if (rolleId === 'varulv') {
+    const wrap = document.createElement('div');
+    wrap.id = 'vchat-btn-wrap';
+    wrap.style.cssText = 'margin-top:1rem;text-align:center';
+    wrap.innerHTML = '<button class="btn btn-r" style="width:100%;justify-content:center" onclick="visVChat()">🐺 Åbn hemmelig varulve-chat</button>';
+    document.getElementById('rolle-card').appendChild(wrap);
+    lytVChat();
+  }
+
   vis('p-rolle');
 }
 
+window.visVChat = function() { vis('p-vchat'); }
+window.visRollePage = function() { vis('p-rolle'); }
+
+function lytVChat() {
+  onValue(ref(db, `spil/${kode}/vchat`), snap => {
+    const msgs = snap.exists() ? Object.values(snap.val()) : [];
+    const container = document.getElementById('vchat-msgs');
+    if (!container) return;
+    container.innerHTML = msgs.map(m => `
+      <div style="display:flex;flex-direction:column;align-items:${m.navn===minNavn?'flex-end':'flex-start'}">
+        <div style="font-size:10px;color:var(--muted);margin-bottom:2px">${m.navn}</div>
+        <div style="background:${m.navn===minNavn?'#4a1010':'#1a0a0a'};border:1px solid #4a1010;border-radius:10px;padding:8px 12px;max-width:75%;font-size:14px;color:#F0EDE8">${m.tekst}</div>
+        <div style="font-size:10px;color:var(--muted);margin-top:2px">${m.tid}</div>
+      </div>
+    `).join('');
+    container.scrollTop = container.scrollHeight;
+  });
+}
+
+window.sendVChat = async function() {
+  const input = document.getElementById('vchat-input');
+  const tekst = input.value.trim();
+  if (!tekst) return;
+  const tid = new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
+  const msgRef = ref(db, `spil/${kode}/vchat/${Date.now()}`);
+  await set(msgRef, {navn: minNavn, tekst, tid});
+  input.value = '';
+}
+
+// ── DØD OG LIVE STATUS ──
+function visDoed(spilData) {
+  const spillere = spilData.spillere ? Object.values(spilData.spillere) : [];
+  const i_live = spillere.filter(s => s.i_live);
+  document.getElementById('doed-spillere').innerHTML = i_live.map(s =>
+    `<div style="display:flex;align-items:center;gap:8px;font-size:14px">
+      <div style="width:8px;height:8px;border-radius:50%;background:#059669;flex-shrink:0"></div>
+      <span>${s.navn}</span>
+    </div>`
+  ).join('') || '<div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere tilbage</div>';
+  vis('p-doed');
+}
+
+function opdaterRolleSide(spilData) {
+  // Tilføj live-status til rolle-siden hvis startet
+  if (!spilData.startet) return;
+  const spillere = spilData.spillere ? Object.values(spilData.spillere) : [];
+  const i_live = spillere.filter(s => s.i_live);
+  const existing = document.getElementById('live-status');
+  const html = `<div style="margin-top:1rem;background:var(--surface2);border-radius:10px;padding:.9rem">
+    <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem">Spillere i live (${i_live.length})</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${i_live.map(s =>
+      `<span style="font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:99px;padding:3px 10px">${s.navn}</span>`
+    ).join('')}</div>
+  </div>`;
+  if (existing) existing.innerHTML = html;
+  else {
+    const card = document.getElementById('rolle-card');
+    const div = document.createElement('div');
+    div.id = 'live-status';
+    div.innerHTML = html;
+    card.appendChild(div);
+  }
+}
+
 // ── EGNE ROLLER ──
-let egneRoller = JSON.parse(localStorage.getItem('varulv-egne-roller') || '[]');
-
-function openRolleModal() {
-  document.getElementById('nr-navn').value = '';
-  document.getElementById('nr-emoji').value = '';
-  document.getElementById('nr-desc').value = '';
-  document.getElementById('nr-tip').value = '';
-  document.getElementById('nr-side').value = 'god';
-  const m = document.getElementById('rolle-modal');
+window.openEgenRolle = function() {
+  const m = document.getElementById('er-modal');
   m.style.display = 'flex';
+  ['er-navn','er-emoji','er-desc','er-tip'].forEach(id => document.getElementById(id).value = '');
 }
-
-function closeRolleModal() {
-  document.getElementById('rolle-modal').style.display = 'none';
+window.closeEgenRolle = function() {
+  document.getElementById('er-modal').style.display = 'none';
 }
-
-function gemEgenRolle() {
-  const navn = document.getElementById('nr-navn').value.trim();
-  const emoji = document.getElementById('nr-emoji').value.trim() || '🎭';
-  const side = document.getElementById('nr-side').value;
-  const desc = document.getElementById('nr-desc').value.trim();
-  const tip = document.getElementById('nr-tip').value.trim();
-  if (!navn) { toast('Skriv et navn til rollen'); return; }
-  if (!desc) { toast('Skriv en beskrivelse'); return; }
+window.gemEgenRolle = function() {
+  const navn = document.getElementById('er-navn').value.trim();
+  const emoji = document.getElementById('er-emoji').value.trim() || '🎭';
+  const side = document.getElementById('er-side').value;
+  const desc = document.getElementById('er-desc').value.trim();
+  const tip = document.getElementById('er-tip').value.trim();
+  if (!navn || !desc) { toast('Udfyld navn og beskrivelse'); return; }
 
   const sideTekster = {god:'🏡 Du er på landsbyens side!', ond:'🐺 Du er på varulvenes side!', speciel:'✨ Du har en speciel rolle!'};
   const borderFarver = {god:'#7C3AED', ond:'#DC2626', speciel:'#EC4899'};
-
   const id = 'custom-' + Date.now();
-  const rolle = {
-    id, navn, emoji, side,
-    sideTekst: sideTekster[side],
-    borderFarve: borderFarver[side],
-    desc: desc || 'Ingen beskrivelse',
-    tip: tip ? '💡 ' + tip : '💡 God fornøjelse!',
-    standard: 1,
-    custom: true,
-  };
+  const rolle = {id, navn, emoji, side, sideTekst:sideTekster[side], borderFarve:borderFarver[side], desc, tip:'💡 '+tip, standard:1};
 
   egneRoller.push(rolle);
   ROLLER.push(rolle);
   ROLLE_MAP[id] = rolle;
-  S.rolleAntal[id] = 1;
+  rolleAntal[id] = 1;
   localStorage.setItem('varulv-egne-roller', JSON.stringify(egneRoller));
-
-  closeRolleModal();
+  closeEgenRolle();
   renderRoller();
   toast(navn + ' tilføjet! ✓');
 }
 
-function indlaesEgneRoller() {
-  egneRoller.forEach(r => {
-    if (!ROLLE_MAP[r.id]) {
-      ROLLER.push(r);
-      ROLLE_MAP[r.id] = r;
-      S.rolleAntal[r.id] = r.standard || 0;
-    }
-  });
-}
-
 // ── START ──
-indlaesEgneRoller();
 vis('p-join');
 </script>
 </body>
