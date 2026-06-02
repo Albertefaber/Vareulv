@@ -72,13 +72,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .input-name{letter-spacing:0;text-align:left}
 
 /* ROLLE AFSLØRING */
-.rolle-reveal{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
-.reveal-card{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:2.5rem 2rem;max-width:360px;width:100%}
-.reveal-emoji{font-size:80px;margin-bottom:1rem;display:block}
-.reveal-title{font-family:'DM Serif Display',serif;font-size:32px;margin-bottom:.5rem}
-.reveal-sub{font-size:14px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
-.reveal-desc{font-size:13px;line-height:1.7;color:var(--text);background:var(--surface2);border-radius:10px;padding:1rem;margin-bottom:1rem}
-.reveal-tip{font-size:12px;color:var(--muted);font-style:italic}
+.rolle-reveal{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:1.5rem;text-align:center}
+.reveal-card{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:2rem 1.75rem;max-width:420px;width:100%}
+.reveal-emoji{font-size:90px;margin-bottom:.75rem;display:block;line-height:1}
+.reveal-title{font-family:'DM Serif Display',serif;font-size:36px;margin-bottom:.4rem}
+.reveal-sub{font-size:15px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5;font-weight:500}
+.reveal-desc{font-size:15px;line-height:1.8;color:var(--text);background:var(--surface2);border-radius:12px;padding:1.25rem;margin-bottom:1rem;text-align:left}
+.reveal-tip{font-size:13px;color:#D97706;font-style:italic;background:#1A1208;border-radius:8px;padding:.75rem 1rem;border:1px solid #92400E;text-align:left}
 
 /* VENTER SIDE */
 .venter-page{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;gap:1rem}
@@ -196,6 +196,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <span class="reveal-emoji" id="rev-emoji">🐺</span>
       <div class="reveal-title" id="rev-titel">Varulv</div>
       <div class="reveal-sub" id="rev-sub">Hold din rolle hemmelig!</div>
+      <div style="font-size:12px;color:var(--faint);margin-bottom:1rem">👇 Læs din rollebeskrivelse nedenfor</div>
       <div class="reveal-desc" id="rev-desc"></div>
       <div class="reveal-tip" id="rev-tip"></div>
     </div>
