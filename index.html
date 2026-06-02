@@ -111,6 +111,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="top-bar">
     <div class="game-title">🌕 <span>Varulv</span></div>
     <span class="badge leder">👑 Leder</span>
+    <button class="btn btn-primary" style="font-size:12px;padding:6px 12px" onclick="initLeder()">🔄 Opret nyt spil</button>
   </div>
   <div class="content">
 
@@ -571,25 +572,23 @@ function visPage(id) {
 }
 
 // ══ INIT ══
-function init() {
+async function init() {
   const params = new URLSearchParams(window.location.search);
   if (params.get('leder') === '1') {
     visPage('page-leder');
-    initLeder();
+    await initLeder();
   } else if (params.get('spil')) {
-    // Direct link med kode
     tilstand.kode = params.get('spil');
     visPage('page-join');
     document.getElementById('kode-input').value = tilstand.kode;
   } else {
-    // Vis join side som standard
     visPage('page-join');
   }
 }
 
 // Leder knap i join siden
 document.getElementById('page-join').querySelector('.join-card').insertAdjacentHTML('beforeend',
-  '<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);text-align:center"><button class="btn btn-ghost" style="font-size:12px;width:100%;justify-content:center" onclick="visPage(\'page-leder\');initLeder()">👑 Jeg er lærer — opret spil</button></div>'
+  '<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);text-align:center"><button class="btn btn-ghost" style="font-size:12px;width:100%;justify-content:center" onclick="visPage('page-leder');initLeder()">👑 Jeg er lærer — opret spil</button></div>'
 );
 
 init();
