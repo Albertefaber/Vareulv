@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Varulv — Vipperød Skole</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0D0B12;--surface:#161320;--surface2:#1E1A2E;--border:#2A2540;--text:#F0EDE8;--muted:#8A8098;--faint:#4A4560;--accent:#C4722A;--purple:#7C3AED;--red:#DC2626;--gold:#D97706;--green:#059669;--r:16px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:15px}
+.page{display:none;min-height:100vh}.page.active{display:flex;flex-direction:column}
+
+/* LEDER-SIDE */
+.top-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 1.5rem;display:flex;align-items:center;gap:12px}
+.game-title{font-family:'DM Serif Display',serif;font-size:20px;flex:1}
+.game-title span{color:var(--purple);font-style:italic}
+.badge{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;font-size:12px;font-weight:500}
+.badge.leder{background:#1E1A2E;color:var(--purple);border:1px solid var(--purple)}
+.badge.spiller{background:#1A1208;color:var(--gold);border:1px solid var(--gold)}
+.content{flex:1;padding:1.5rem;max-width:700px;margin:0 auto;width:100%}
+.section-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:.75rem;color:var(--text)}
+
+/* ROLLER GRID */
+.roller-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;margin-bottom:1.5rem}
+.rolle-card{background:var(--surface);border:1.5px solid var(--border);border-radius:12px;padding:.9rem .75rem;text-align:center;cursor:pointer;transition:all .15s;user-select:none}
+.rolle-card:hover{border-color:var(--purple);background:var(--surface2)}
+.rolle-card.selected{border-color:var(--purple);background:#1E1A2E}
+.rolle-card.added{border-color:var(--green);background:#021A0E}
+.rolle-emoji{font-size:28px;display:block;margin-bottom:5px}
+.rolle-name{font-size:13px;font-weight:500}
+.rolle-count{font-size:11px;color:var(--muted);margin-top:3px}
+.rolle-antal{display:flex;align-items:center;gap:6px;justify-content:center;margin-top:6px}
+.antal-btn{width:22px;height:22px;border-radius:50%;border:1px solid var(--border);background:none;color:var(--text);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.antal-btn:hover{background:var(--surface2);border-color:var(--purple)}
+.antal-num{font-size:14px;font-weight:500;min-width:20px;text-align:center}
+
+/* SPILLERLISTE */
+.spiller-list{display:flex;flex-direction:column;gap:6px;margin-bottom:1.5rem}
+.spiller-row{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;display:flex;align-items:center;gap:10px}
+.spiller-navn{flex:1;font-size:14px}
+.spiller-rolle{font-size:12px;color:var(--muted)}
+.spiller-status{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-venter{background:var(--faint)}
+.status-klar{background:var(--green)}
+
+/* KNAPPER */
+.btn{padding:10px 20px;border-radius:10px;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;transition:all .15s;display:inline-flex;align-items:center;gap:7px}
+.btn-primary{background:var(--purple);color:#fff}
+.btn-primary:hover{opacity:.9}
+.btn-danger{background:var(--red);color:#fff}
+.btn-danger:hover{opacity:.9}
+.btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}
+.btn-ghost:hover{border-color:var(--purple)}
+.btn-green{background:var(--green);color:#fff}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1rem}
+
+/* KODE BOX */
+.kode-box{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem;text-align:center}
+.kode-label{font-size:12px;color:var(--muted);margin-bottom:.5rem}
+.kode-num{font-family:'DM Serif Display',serif;font-size:48px;letter-spacing:8px;color:var(--purple)}
+.kode-url{font-size:12px;color:var(--muted);margin-top:.4rem}
+
+/* SPILLER-SIDE */
+.spiller-page{background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:2rem;text-align:center}
+.join-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:2rem;width:100%;max-width:360px}
+.join-title{font-family:'DM Serif Display',serif;font-size:26px;margin-bottom:.5rem}
+.join-sub{font-size:14px;color:var(--muted);margin-bottom:1.5rem}
+.input{width:100%;padding:12px 14px;font-size:16px;border:1.5px solid var(--border);border-radius:10px;background:var(--surface2);color:var(--text);font-family:'DM Sans',sans-serif;margin-bottom:.75rem;text-align:center;letter-spacing:2px}
+.input:focus{outline:none;border-color:var(--purple)}
+.input-name{letter-spacing:0;text-align:left}
+
+/* ROLLE AFSLØRING */
+.rolle-reveal{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+.reveal-card{background:var(--surface);border:2px solid var(--border);border-radius:20px;padding:2.5rem 2rem;max-width:360px;width:100%}
+.reveal-emoji{font-size:80px;margin-bottom:1rem;display:block}
+.reveal-title{font-family:'DM Serif Display',serif;font-size:32px;margin-bottom:.5rem}
+.reveal-sub{font-size:14px;color:var(--muted);margin-bottom:1.5rem;line-height:1.6}
+.reveal-desc{font-size:13px;line-height:1.7;color:var(--text);background:var(--surface2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.reveal-tip{font-size:12px;color:var(--muted);font-style:italic}
+
+/* VENTER SIDE */
+.venter-page{background:var(--bg);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center;gap:1rem}
+.puls{animation:puls 2s ease-in-out infinite}
+@keyframes puls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.95)}}
+
+/* SPIL OVERSIGT */
+.nat-dag{display:flex;gap:8px;margin-bottom:1.5rem}
+.fase-btn{flex:1;padding:12px;border-radius:10px;border:1.5px solid var(--border);background:var(--surface);cursor:pointer;font-family:'DM Serif Display',serif;font-size:16px;color:var(--muted);transition:all .15s}
+.fase-btn.active-dag{border-color:var(--gold);color:var(--gold);background:#1A1208}
+.fase-btn.active-nat{border-color:var(--purple);color:var(--purple);background:#12102A}
+.log-list{display:flex;flex-direction:column;gap:4px;max-height:200px;overflow-y:auto}
+.log-item{font-size:12px;color:var(--muted);padding:4px 8px;border-radius:6px;background:var(--surface)}
+.log-item.death{color:#F87171}
+.log-item.heal{color:#6EE7B7}
+.log-item.vote{color:var(--gold)}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--purple);color:#fff;padding:9px 18px;border-radius:99px;font-size:13px;z-index:200;opacity:0;transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:500px){.roller-grid{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<!-- LEDER SIDE -->
+<div class="page active" id="page-leder">
+  <div class="top-bar">
+    <div class="game-title">🌕 <span>Varulv</span></div>
+    <span class="badge leder">👑 Leder</span>
+  </div>
+  <div class="content">
+
+    <div id="setup-section">
+      <div class="kode-box" id="kode-box" style="display:none">
+        <div class="kode-label">Eleverne indtaster denne kode</div>
+        <div class="kode-num" id="kode-display"></div>
+        <div class="kode-url">albertefaber.github.io/varulv</div>
+      </div>
+
+      <div class="section-title">🎭 Vælg roller</div>
+      <div class="roller-grid" id="roller-grid"></div>
+
+      <div class="section-title">👥 Spillere der har sluttet sig til</div>
+      <div class="spiller-list" id="spiller-list">
+        <div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere endnu — del koden!</div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="startSpil()">🎲 Start spil — tildel roller</button>
+        <button class="btn btn-ghost" onclick="nulstil()">🔄 Nyt spil</button>
+      </div>
+    </div>
+
+    <div id="spil-section" style="display:none">
+      <div class="section-title">🌙 Spillets gang</div>
+      <div class="nat-dag">
+        <button class="fase-btn active-dag" onclick="setFase('dag')" id="btn-dag">☀️ Dag</button>
+        <button class="fase-btn" onclick="setFase('nat')" id="btn-nat">🌙 Nat</button>
+      </div>
+
+      <div id="dag-panel">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Diskuter hvem der er varulv. Stem og eliminer én spiller.</p>
+        <div class="section-title" style="font-size:15px">Stem ud</div>
+        <div id="stem-liste" class="spiller-list"></div>
+      </div>
+
+      <div id="nat-panel" style="display:none">
+        <p style="font-size:13px;color:var(--muted);margin-bottom:1rem">Alle lukker øjnene. Vækk rollerne én ad gangen.</p>
+        <div id="nat-aktioner"></div>
+      </div>
+
+      <div class="section-title" style="font-size:15px;margin-top:1rem">📋 Hændelseslog</div>
+      <div class="log-list" id="log-list"></div>
+
+      <div class="btn-row" style="margin-top:1rem">
+        <button class="btn btn-ghost" onclick="tjekSejr()">🏆 Tjek sejr</button>
+        <button class="btn btn-ghost" onclick="nulstil()">🔄 Nyt spil</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- SPILLER JOIN SIDE -->
+<div class="page" id="page-join">
+  <div class="spiller-page">
+    <div class="join-card">
+      <div style="font-size:40px;margin-bottom:.5rem">🌕</div>
+      <div class="join-title">Varulv</div>
+      <div class="join-sub">Indtast koden fra din lærer</div>
+      <input class="input" type="text" id="kode-input" placeholder="1234" maxlength="4" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      <input class="input input-name" type="text" id="navn-input" placeholder="Dit navn" maxlength="20">
+      <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="joinSpil()">Slutt dig til spillet</button>
+    </div>
+  </div>
+</div>
+
+<!-- VENTER SIDE -->
+<div class="page" id="page-venter">
+  <div class="venter-page">
+    <div class="puls" style="font-size:60px">🌕</div>
+    <div style="font-family:'DM Serif Display',serif;font-size:24px">Venter på læreren...</div>
+    <div style="font-size:14px;color:var(--muted)" id="venter-navn"></div>
+    <div style="font-size:13px;color:var(--muted);margin-top:.5rem">Spillet starter snart 🐺</div>
+  </div>
+</div>
+
+<!-- ROLLE AFSLØRING -->
+<div class="page" id="page-rolle">
+  <div class="rolle-reveal">
+    <div class="reveal-card" id="reveal-card">
+      <span class="reveal-emoji" id="rev-emoji">🐺</span>
+      <div class="reveal-title" id="rev-titel">Varulv</div>
+      <div class="reveal-sub" id="rev-sub">Hold din rolle hemmelig!</div>
+      <div class="reveal-desc" id="rev-desc"></div>
+      <div class="reveal-tip" id="rev-tip"></div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ══ ROLLER DEFINITIONER ══
+const ALLE_ROLLER = [
+  {id:'varulv', navn:'Varulv', emoji:'🐺', farve:'#DC2626', antal:2, type:'ond',
+   beskrivelse:'Du er en varulv! Hver nat vågner du og dine medvarulve i hemmelighed og peger på en borger I vil æde.',
+   tip:'Vær overbevisende om dagen — og lad ikke nogen opdage dig!'},
+  {id:'borger', navn:'Borger', emoji:'👤', farve:'#6B7280', antal:4, type:'god',
+   beskrivelse:'Du er en almindelig borger. Du har ingen særlige evner — men din stemme ved dagafstemningen er vigtig!',
+   tip:'Observer andres adfærd nøje. Hvem opfører sig mistænkeligt?'},
+  {id:'syersken', navn:'Syersken', emoji:'👁️', farve:'#7C3AED', antal:1, type:'god',
+   beskrivelse:'Hver nat kan du pege på én spiller — og læreren fortæller dig hemmeligt om personen er varulv eller ej.',
+   tip:'Del din viden klogt — men pas på at du ikke afsløres som syersken!'},
+  {id:'laege', navn:'Læge', emoji:'💊', farve:'#059669', antal:1, type:'god',
+   beskrivelse:'Hver nat kan du beskytte én spiller (også dig selv) mod varulvenes angreb. Du kan ikke beskytte samme person to nætter i træk.',
+   tip:'Prøv at gætte hvem varulvene vil angribe — og beskyt dem!'},
+  {id:'heks', navn:'Heks', emoji:'🧙', farve:'#D97706', antal:1, type:'god',
+   beskrivelse:'Du har to eliksirer: én der redder den angrebne fra varulvene, og én der dræber en valgfri spiller. Begge kan kun bruges én gang.',
+   tip:'Gem din dræbende eliksir til det rigtige øjeblik!'},
+  {id:'jeger', navn:'Jæger', emoji:'🏹', farve:'#92400E', antal:1, type:'god',
+   beskrivelse:'Når du dør — enten om natten eller ved afstemning — skyder du øjeblikkeligt én anden spiller med dig i graven.',
+   tip:'Hold din identitet skjult så længe som muligt!'},
+  {id:'amor', navn:'Amor', emoji:'💘', farve:'#EC4899', antal:1, type:'speciel',
+   beskrivelse:'Den første nat udpeger du to spillere som bliver forelsket. Hvis den ene dør, dør den anden af sorg. Elskende vinder KUN hvis begge to overlever.',
+   tip:'Vælg klogt — du kan forene en varulv og en borger, og det ændrer hele spillet!'},
+  {id:'landsbybarn', navn:'Landsbybarn', emoji:'🧒', farve:'#FBBF24', antal:1, type:'god',
+   beskrivelse:'Du er et barn fra landsbyen. Du har ingen særlige evner — men ved afstemning har du to stemmer i stedet for én!',
+   tip:'Din dobbelte stemme er kraftfuld — brug den klogt'},
+  {id:'vampyr', navn:'Vampyr', emoji:'🧛', farve:'#7F1D1D', antal:1, type:'ond',
+   beskrivelse:'Du er på varulvenes side. Hver nat kan du bide én spiller — de bliver til vampyr og er nu på dit hold uden at nogen ved det.',
+   tip:'Skab forvirring ved at bide borgere der opfører sig mistænkeligt'},
+];
+
+const ROLLER_MAP = {};
+ALLE_ROLLER.forEach(r => ROLLER_MAP[r.id] = r);
+
+// ══ STATE ══
+let tilstand = {
+  erLeder: false,
+  kode: null,
+  spillere: [], // {navn, rolle, i_live, elskende}
+  rolleAntal: {varulv:2, borger:4, syersken:1, laege:1},
+  fase: 'dag',
+  log: [],
+  heksReddet: false,
+  heksDraebt: false,
+  laegeBeskyttet: null,
+  laegeForrigeBeskyttet: null,
+  minNavn: null,
+  minRolle: null,
+};
+
+// Simuleret database via localStorage med polling
+function gemTilstand() {
+  const key = 'varulv-' + tilstand.kode;
+  localStorage.setItem(key, JSON.stringify(tilstand));
+}
+function hentTilstand() {
+  if (!tilstand.kode) return;
+  const key = 'varulv-' + tilstand.kode;
+  const raw = localStorage.getItem(key);
+  if (raw) {
+    const gemt = JSON.parse(raw);
+    tilstand.spillere = gemt.spillere || [];
+    tilstand.fase = gemt.fase || 'dag';
+    tilstand.log = gemt.log || [];
+    return gemt;
+  }
+  return null;
+}
+
+let pollInterval = null;
+function startPoll() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(() => {
+    const gammel = JSON.stringify(tilstand.spillere);
+    const gemt = hentTilstand();
+    if (!gemt) return;
+    if (JSON.stringify(tilstand.spillere) !== gammel) {
+      opdaterLederUI();
+    }
+    // Tjek om spiller har fået rolle
+    if (!tilstand.erLeder && tilstand.minNavn) {
+      const mig = tilstand.spillere.find(s => s.navn === tilstand.minNavn);
+      if (mig && mig.rolle && !tilstand.minRolle) {
+        tilstand.minRolle = mig.rolle;
+        visRolle(mig.rolle);
+      }
+    }
+  }, 2000);
+}
+
+function toast(msg, dur=2500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), dur);
+}
+
+// ══ LEDER SETUP ══
+function initLeder() {
+  tilstand.erLeder = true;
+  tilstand.kode = Math.floor(1000 + Math.random() * 9000).toString();
+  tilstand.spillere = [];
+  tilstand.log = [];
+  gemTilstand();
+
+  document.getElementById('kode-box').style.display = 'block';
+  document.getElementById('kode-display').textContent = tilstand.kode;
+  renderRollerGrid();
+  startPoll();
+}
+
+function renderRollerGrid() {
+  const grid = document.getElementById('roller-grid');
+  grid.innerHTML = ALLE_ROLLER.map(r => {
+    const antal = tilstand.rolleAntal[r.id] || 0;
+    return `<div class="rolle-card${antal > 0 ? ' added' : ''}" id="rk-${r.id}">
+      <span class="rolle-emoji">${r.emoji}</span>
+      <div class="rolle-name">${r.navn}</div>
+      <div class="rolle-count">${r.beskrivelse.substring(0, 40)}...</div>
+      <div class="rolle-antal">
+        <button class="antal-btn" onclick="aendreAntal('${r.id}', -1)">−</button>
+        <span class="antal-num" id="an-${r.id}">${antal}</span>
+        <button class="antal-btn" onclick="aendreAntal('${r.id}', 1)">+</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function aendreAntal(id, delta) {
+  tilstand.rolleAntal[id] = Math.max(0, (tilstand.rolleAntal[id] || 0) + delta);
+  document.getElementById('an-' + id).textContent = tilstand.rolleAntal[id];
+  document.getElementById('rk-' + id).className = 'rolle-card' + (tilstand.rolleAntal[id] > 0 ? ' added' : '');
+}
+
+function opdaterLederUI() {
+  const liste = document.getElementById('spiller-list');
+  if (!tilstand.spillere.length) {
+    liste.innerHTML = '<div style="font-size:13px;color:var(--muted);font-style:italic">Ingen spillere endnu — del koden!</div>';
+    return;
+  }
+  liste.innerHTML = tilstand.spillere.map(s => `
+    <div class="spiller-row">
+      <div class="spiller-status ${s.rolle ? 'status-klar' : 'status-venter'}"></div>
+      <div class="spiller-navn">${s.navn}</div>
+      <div class="spiller-rolle">${s.rolle ? ROLLER_MAP[s.rolle]?.emoji + ' ' + ROLLER_MAP[s.rolle]?.navn : 'Venter...'}</div>
+    </div>
+  `).join('');
+}
+
+function startSpil() {
+  if (tilstand.spillere.length < 4) {
+    toast('Mindst 4 spillere skal med!'); return;
+  }
+  // Byg rolleliste
+  let roller = [];
+  Object.entries(tilstand.rolleAntal).forEach(([id, antal]) => {
+    for (let i = 0; i < antal; i++) roller.push(id);
+  });
+  // Fyld op med borgere hvis for få roller
+  while (roller.length < tilstand.spillere.length) roller.push('borger');
+  // Bland
+  for (let i = roller.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [roller[i], roller[j]] = [roller[j], roller[i]];
+  }
+  // Tildel
+  tilstand.spillere.forEach((s, i) => {
+    s.rolle = roller[i] || 'borger';
+    s.i_live = true;
+  });
+  tilstand.fase = 'dag';
+  tilstand.log = ['🎮 Spillet er startet! Roller er tildelt.'];
+  gemTilstand();
+  visSpilPanel();
+  toast('Roller tildelt! ✓');
+}
+
+function visSpilPanel() {
+  document.getElementById('setup-section').style.display = 'none';
+  document.getElementById('spil-section').style.display = 'block';
+  renderSpilUI();
+}
+
+function renderSpilUI() {
+  // Stem liste
+  const stemListe = document.getElementById('stem-liste');
+  const i_live = tilstand.spillere.filter(s => s.i_live);
+  stemListe.innerHTML = i_live.map(s => {
+    const r = ROLLER_MAP[s.rolle] || {};
+    return `<div class="spiller-row">
+      <div class="spiller-status status-klar"></div>
+      <div class="spiller-navn">${s.navn} <span style="font-size:11px;color:var(--muted)">(${r.emoji} ${r.navn})</span></div>
+      <button class="btn btn-danger" style="padding:5px 10px;font-size:12px" onclick="eliminer('${s.navn}')">☠️ Ud</button>
+    </div>`;
+  }).join('');
+
+  // Nat aktioner
+  const natAkt = document.getElementById('nat-aktioner');
+  natAkt.innerHTML = `
+    <div style="margin-bottom:1rem">
+      <div style="font-size:13px;font-weight:500;margin-bottom:.5rem">🐺 Varulvene vågner — hvem angriber de?</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${i_live.map(s => `<button class="btn btn-ghost" style="font-size:12px;padding:6px 10px" onclick="varulvAngreb('${s.navn}')">${s.navn}</button>`).join('')}
+      </div>
+    </div>
+    <div style="margin-bottom:1rem">
+      <div style="font-size:13px;font-weight:500;margin-bottom:.5rem">💊 Lægen beskytter — hvem?</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        ${i_live.map(s => `<button class="btn btn-ghost" style="font-size:12px;padding:6px 10px;background:#021A0E;border-color:#059669;color:#6EE7B7" onclick="laegeBesky('${s.navn}')">${s.navn}</button>`).join('')}
+      </div>
+    </div>
+  `;
+
+  // Log
+  const logListe = document.getElementById('log-list');
+  logListe.innerHTML = [...tilstand.log].reverse().map(l =>
+    `<div class="log-item${l.includes('dø') || l.includes('elimineret') ? ' death' : l.includes('beskyttet') || l.includes('reddet') ? ' heal' : l.includes('stem') ? ' vote' : ''}">${l}</div>`
+  ).join('');
+}
+
+function setFase(fase) {
+  tilstand.fase = fase;
+  document.getElementById('btn-dag').className = 'fase-btn' + (fase === 'dag' ? ' active-dag' : '');
+  document.getElementById('btn-nat').className = 'fase-btn' + (fase === 'nat' ? ' active-nat' : '');
+  document.getElementById('dag-panel').style.display = fase === 'dag' ? 'block' : 'none';
+  document.getElementById('nat-panel').style.display = fase === 'nat' ? 'block' : 'none';
+}
+
+let natAngrebMaal = null;
+function varulvAngreb(navn) {
+  natAngrebMaal = navn;
+  toast(`🐺 Varulvene angriber ${navn}`);
+}
+
+function laegeBesky(navn) {
+  tilstand.laegeForrigeBeskyttet = tilstand.laegeBeskyttet;
+  tilstand.laegeBeskyttet = navn;
+  if (natAngrebMaal && natAngrebMaal === navn) {
+    tilstand.log.push(`💊 ${navn} blev angrebet men beskyttet af lægen!`);
+    natAngrebMaal = null;
+    toast(`💊 ${navn} er beskyttet!`);
+  } else {
+    tilstand.log.push(`💊 Lægen beskyttede ${navn} i nat`);
+    toast(`💊 ${navn} er beskyttet`);
+  }
+  if (natAngrebMaal) {
+    // Angreb sker
+    const offer = tilstand.spillere.find(s => s.navn === natAngrebMaal);
+    if (offer) {
+      offer.i_live = false;
+      tilstand.log.push(`🐺 ${natAngrebMaal} blev ædt af varulvene om natten!`);
+      toast(`💀 ${natAngrebMaal} er død`);
+      // Tjek jæger
+      if (offer.rolle === 'jeger') {
+        toast(`🏹 ${natAngrebMaal} var jæger! Hvem skyder de?`, 4000);
+        tilstand.log.push(`🏹 ${natAngrebMaal} (jæger) skyder én spiller med sig i graven!`);
+      }
+    }
+    natAngrebMaal = null;
+  }
+  gemTilstand();
+  renderSpilUI();
+}
+
+function eliminer(navn) {
+  if (!confirm(`Er I sikre på at stemme ${navn} ud?`)) return;
+  const spiller = tilstand.spillere.find(s => s.navn === navn);
+  if (spiller) {
+    spiller.i_live = false;
+    const r = ROLLER_MAP[spiller.rolle];
+    tilstand.log.push(`🗳️ ${navn} (${r?.navn || '?'}) blev stemt ud!`);
+    // Jæger
+    if (spiller.rolle === 'jeger') {
+      toast(`🏹 ${navn} var jæger! De skyder én med sig!`, 4000);
+      tilstand.log.push(`🏹 ${navn} (jæger) skyder én spiller!`);
+    }
+    gemTilstand();
+    renderSpilUI();
+    tjekSejr();
+    toast(`${navn} er ude! De var ${r?.emoji} ${r?.navn}`);
+  }
+}
+
+function tjekSejr() {
+  const i_live = tilstand.spillere.filter(s => s.i_live);
+  const varulve = i_live.filter(s => s.rolle === 'varulv' || s.rolle === 'vampyr');
+  const gode = i_live.filter(s => s.type !== 'ond');
+
+  if (varulve.length === 0) {
+    toast('🎉 LANDSBYEN VINDER! Alle varulve er elimineret!', 5000);
+    tilstand.log.push('🎉 SEJR: Landsbyen har vundet!');
+    gemTilstand();
+  } else if (varulve.length >= gode.length) {
+    toast('🐺 VARULVENE VINDER! De har overtaget landsbyen!', 5000);
+    tilstand.log.push('🐺 SEJR: Varulvene har vundet!');
+    gemTilstand();
+  }
+}
+
+function nulstil() {
+  if (!confirm('Start et helt nyt spil?')) return;
+  if (pollInterval) clearInterval(pollInterval);
+  tilstand = {
+    erLeder: true, kode: null, spillere: [], fase: 'dag', log: [],
+    rolleAntal: {varulv:2, borger:4, syersken:1, laege:1},
+    heksReddet: false, heksDraebt: false, laegeBeskyttet: null,
+    minNavn: null, minRolle: null,
+  };
+  document.getElementById('setup-section').style.display = 'block';
+  document.getElementById('spil-section').style.display = 'none';
+  initLeder();
+}
+
+// ══ SPILLER JOIN ══
+function joinSpil() {
+  const kode = document.getElementById('kode-input').value.trim();
+  const navn = document.getElementById('navn-input').value.trim();
+  if (kode.length !== 4) { toast('Indtast en 4-cifret kode'); return; }
+  if (!navn) { toast('Skriv dit navn'); return; }
+
+  tilstand.kode = kode;
+  const gemt = hentTilstand();
+  if (!gemt) { toast('Forkert kode — prøv igen'); return; }
+
+  // Tilmeld
+  if (!gemt.spillere.find(s => s.navn === navn)) {
+    gemt.spillere.push({navn, rolle: null, i_live: true});
+    localStorage.setItem('varulv-' + kode, JSON.stringify(gemt));
+  }
+  tilstand.spillere = gemt.spillere;
+  tilstand.minNavn = navn;
+
+  visPage('page-venter');
+  document.getElementById('venter-navn').textContent = navn + ' — venter på at læreren starter spillet';
+  startPoll();
+}
+
+function visRolle(rolleId) {
+  const rolle = ROLLER_MAP[rolleId];
+  if (!rolle) return;
+  document.getElementById('rev-emoji').textContent = rolle.emoji;
+  document.getElementById('rev-titel').textContent = rolle.navn;
+  document.getElementById('rev-sub').textContent = rolle.type === 'ond' ? '🐺 Du er på varulvenes side!' : '🏡 Du er på landsbyens side!';
+  document.getElementById('rev-desc').textContent = rolle.beskrivelse;
+  document.getElementById('rev-tip').textContent = '💡 ' + rolle.tip;
+  document.getElementById('reveal-card').style.borderColor =
+    rolle.type === 'ond' ? '#DC2626' : rolle.type === 'speciel' ? '#EC4899' : '#7C3AED';
+  visPage('page-rolle');
+}
+
+// ══ NAVIGATION ══
+function visPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+// ══ INIT ══
+function init() {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('leder') === '1') {
+    visPage('page-leder');
+    initLeder();
+  } else if (params.get('spil')) {
+    // Direct link med kode
+    tilstand.kode = params.get('spil');
+    visPage('page-join');
+    document.getElementById('kode-input').value = tilstand.kode;
+  } else {
+    // Vis join side som standard
+    visPage('page-join');
+  }
+}
+
+// Leder knap i join siden
+document.getElementById('page-join').querySelector('.join-card').insertAdjacentHTML('beforeend',
+  '<div style="margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border);text-align:center"><button class="btn btn-ghost" style="font-size:12px;width:100%;justify-content:center" onclick="visPage(\'page-leder\');initLeder()">👑 Jeg er lærer — opret spil</button></div>'
+);
+
+init();
+</script>
+</body>
+</html>
